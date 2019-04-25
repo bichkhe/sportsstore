@@ -9,10 +9,12 @@
     "json": "json-server src/data.js -p 3500 -m src/authMiddleware.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.6.5",
     "jsonwebtoken": "^8.5.1",
     "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
     "vuex": "^3.1.0"
   },
   "devDependencies": {

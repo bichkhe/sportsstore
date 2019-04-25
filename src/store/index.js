@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import  Vuex from 'vuex'
+import axios from 'axios'
+import CartModule from './cart'
 
 Vue.use(Vuex)
 const testData = [];
@@ -8,13 +10,22 @@ for (let i = 1; i <= 20; i++) {
         description: `This is Product #${i}`, price: i * 50    })
 }
 
+
+const  productsUrl = 'http://localhost:3500/products'
+const  categoriesUrl = 'http://localhost:3500/categories'
+
 export default new Vuex.Store({
+    strict: true,
+    modules:{
+        cart :CartModule
+    },
     state: {
         products: testData,
         productsTotal: testData.length,
         currentPage :1,
         pageSize: 2,
-        currentCategory: "All"
+        currentCategory: "All",
+        categoriesData:[]
     },
     getters:{
         productsFilteredByCategory: state => state.products.filter(
@@ -27,7 +38,7 @@ export default new Vuex.Store({
             return getters.productsFilteredByCategory.slice(index, index + state.pageSize)
         },
         pageCount : (state, getters) => Math.ceil(getters.productsFilteredByCategory.length/state.pageSize),
-        categories: state => ["All", ... new Set(state.products.map(p => p.category).sort())]
+        categories: state => ["All", ... state.categoriesData]
 
 
     },
@@ -42,14 +53,23 @@ export default new Vuex.Store({
             state.currentPage = 1
         },
         setCurrentCategory(state, category){
-            state.currentCategory =category
+            state.currentCategory = category
             state.currentPage = 1;
+        },
+        setData(state, data){
+            state.products = data.pdata
+            state.productsTotal =data.pdata.length
+            state.categoriesData = data.cdata.sort()
         }
-
     },
     actions: {
         setCurrentCat(context, payload){
             context.commit('setCurrentCategory', payload)
+        },
+        async getData(context){
+            let pdata = (await axios.get(productsUrl)).data
+            let cdata = (await axios.get(categoriesUrl)).data
+            context.commit('setData', {pdata, cdata})
         }
     }
 })
