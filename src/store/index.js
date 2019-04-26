@@ -2,6 +2,7 @@ import Vue from 'vue'
 import  Vuex from 'vuex'
 import axios from 'axios'
 import CartModule from './cart'
+import OrdersModule from './orders'
 
 Vue.use(Vuex)
 const testData = [];
@@ -17,7 +18,8 @@ const  categoriesUrl = 'http://localhost:3500/categories'
 export default new Vuex.Store({
     strict: true,
     modules:{
-        cart :CartModule
+        cart :CartModule,
+        orders: OrdersModule
     },
     state: {
         products: testData,
@@ -70,6 +72,7 @@ export default new Vuex.Store({
             let pdata = (await axios.get(productsUrl)).data
             let cdata = (await axios.get(categoriesUrl)).data
             context.commit('setData', {pdata, cdata})
-        }
+        },
+
     }
 })

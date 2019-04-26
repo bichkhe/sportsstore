@@ -54,6 +54,10 @@ export default {
             localStorage.setItem('cart', JSON.stringify(context.state.lines))
 
         },
+        clearCartData(context){
+            context.state.lines = []
+            localStorage.setItem('cart', JSON.stringify(context.state.lines))
+        },
         initalizeCartData(context, store){
             // context.dispatch('storeCartData')
             context.dispatch('loadCartData')

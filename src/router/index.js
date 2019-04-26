@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Store from '@/components/Store'
 import  ShoppingCart from '@/components/ShoppingCart'
-
+import Checkout from '@/components/Checkout'
+import OrderThank from '@/components/OrderThank'
 Vue.use(VueRouter)
 
 export default new VueRouter({
@@ -13,6 +14,12 @@ export default new VueRouter({
         },
         {
             path:'/cart', component: ShoppingCart
+        },
+        {
+            path:'/checkout', component: Checkout
+        },
+        {
+            path:'/thanks/:id', component: OrderThank
         },
         {
             path:'*', redirect :'/'

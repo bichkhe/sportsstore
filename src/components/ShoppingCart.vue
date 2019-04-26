@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col bg-dark text-white">
                 <a class="navbar-brand"> SPORTS STORE</a>
+                <cart-summary></cart-summary>
             </div>
         </div>
         <div class="row">
@@ -64,9 +65,11 @@
 <script>
     import ShoppingCartLine from '@/components/ShoppingCartLine'
     import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+    import CartSummary from "@/components/CartSummary"
     export default {
         name: "ShoppingCart",
         components: {
+            CartSummary,
             CartLine: ShoppingCartLine
         },
         data(){
